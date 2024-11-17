@@ -46,7 +46,7 @@ export class LoginComponent {
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe({
         next: () => console.log('Login feito com sucesso!'),
-        error: () => console.log('Erro inesperado! Tente novamente mais tarde'),
+        error: () => console.log('Usuário ou senha inválidos'),
       });
   }
 

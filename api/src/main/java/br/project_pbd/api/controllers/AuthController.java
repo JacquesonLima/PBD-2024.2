@@ -1,6 +1,9 @@
 package br.project_pbd.api.controllers;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +17,6 @@ import br.project_pbd.api.dto.RegisterRequestDTO;
 import br.project_pbd.api.dto.ResponseDTO;
 import br.project_pbd.api.infra.security.TokenService;
 import br.project_pbd.api.repositories.UserRepository;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -34,7 +35,7 @@ public class AuthController {
       String token = this.tokenService.generateToken(user);
       return ResponseEntity.ok(new ResponseDTO(user.getUsername(), token));
     }
-    return ResponseEntity.badRequest().build();
+    return ResponseEntity.badRequest().body("Usuário ou senha inválidos");
   }
 
   @SuppressWarnings("rawtypes")
