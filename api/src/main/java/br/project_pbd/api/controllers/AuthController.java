@@ -1,7 +1,6 @@
 package br.project_pbd.api.controllers;
 
-import java.util.Optional;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,8 @@ import br.project_pbd.api.dto.RegisterRequestDTO;
 import br.project_pbd.api.dto.ResponseDTO;
 import br.project_pbd.api.infra.security.TokenService;
 import br.project_pbd.api.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,8 +25,9 @@ public class AuthController {
   private final PasswordEncoder passwordEncoder;
   private final TokenService tokenService;
 
+  @SuppressWarnings("rawtypes")
   @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestBody LoginRequestDTO body) {
+  public ResponseEntity login(@RequestBody LoginRequestDTO body) {
     User user = this.repository.findByUsername(body.username())
         .orElseThrow(() -> new RuntimeException("User not found"));
     if (passwordEncoder.matches(body.password(), user.getPassword())) {

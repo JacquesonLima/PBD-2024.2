@@ -25,9 +25,12 @@ public class SecurityConfig {
   @Autowired
   SecurityFilter securityFilter;
 
+  @SuppressWarnings("removal")
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+        .cors() // Habilita o suporte a CORS
+        .and()
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
@@ -35,6 +38,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
     return http.build();
   }
 

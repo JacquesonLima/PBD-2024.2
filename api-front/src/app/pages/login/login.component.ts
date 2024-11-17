@@ -3,6 +3,7 @@ import { DefaultLoginLayoutComponent } from '../../components/default-login-layo
 import {
   FormControl,
   FormGroup,
+  FormRecord,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -25,7 +26,7 @@ interface LoginForm {
   ],
   providers: [LoginService],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   loginForm!: FormGroup<LoginForm>;
@@ -35,7 +36,7 @@ export class LoginComponent {
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(6),
       ]),
     });
   }
@@ -44,9 +45,8 @@ export class LoginComponent {
     this.loginService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe({
-        next: () => console.log('login feito com sucesso'),
-        error: () =>
-          console.log('error inesperado, tente novamente mais tarde'),
+        next: () => console.log('Login feito com sucesso!'),
+        error: () => console.log('Erro inesperado! Tente novamente mais tarde'),
       });
   }
 

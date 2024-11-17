@@ -1,7 +1,5 @@
 package br.project_pbd.api.infra.security;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,9 +9,10 @@ import org.springframework.stereotype.Component;
 import br.project_pbd.api.domain.user.User;
 import br.project_pbd.api.repositories.UserRepository;
 
+import java.util.ArrayList;
+
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
-
   @Autowired
   private UserRepository repository;
 

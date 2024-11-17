@@ -21,4 +21,15 @@ export class LoginService {
         })
       );
   }
+
+  signup(username: string, password: string) {
+    return this.httpClient
+      .post<LoginResponse>(this.apiUrl + '/register', { username, password })
+      .pipe(
+        tap((value) => {
+          sessionStorage.setItem('auth-token', value.token);
+          sessionStorage.setItem('username', value.username);
+        })
+      );
+  }
 }
