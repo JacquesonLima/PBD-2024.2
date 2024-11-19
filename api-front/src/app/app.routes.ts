@@ -1,9 +1,19 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
+import { MainComponent } from './pages/main/main.component';
+import { SignUpComponent } from './pages/signup/signup.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent,
+  },
+  {
+    path: 'main',
+    component: MainComponent,
   },
 ];

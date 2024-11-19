@@ -22,12 +22,14 @@ main section {
 }
 
 .main-section img {
-  width: 600px;
+  width: 50vw;
 }
 
 .form-section {
-  flex-grow: 0.3;
+  flex-grow: 0.4;
   padding: 0 35px;
+  box-shadow: 10px 6px 8px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .form-section h2 {

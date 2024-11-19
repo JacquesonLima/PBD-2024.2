@@ -3,22 +3,21 @@ import { DefaultLoginLayoutComponent } from '../../components/default-login-layo
 import {
   FormControl,
   FormGroup,
-  FormRecord,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
-import { sign } from 'crypto';
 
-interface LoginForm {
-  username: FormControl;
+interface SignupForm {
+  name: FormControl;
   password: FormControl;
+  passwordConfirm: FormControl;
 }
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-signup',
   standalone: true,
   imports: [
     DefaultLoginLayoutComponent,
@@ -26,16 +25,20 @@ interface LoginForm {
     PrimaryInputComponent,
   ],
   providers: [LoginService],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss',
 })
-export class LoginComponent {
-  loginForm!: FormGroup<LoginForm>;
+export class SignUpComponent {
+  signupForm!: FormGroup<SignupForm>;
 
   constructor(private router: Router, private loginService: LoginService) {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+    this.signupForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      passwordConfirm: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),
@@ -44,18 +47,14 @@ export class LoginComponent {
 
   submit() {
     this.loginService
-      .login(this.loginForm.value.username, this.loginForm.value.password)
+      .signup(this.signupForm.value.name, this.signupForm.value.password)
       .subscribe({
-        next: () => (console.log('Login feito com sucesso!'), this.login()),
-        error: () => console.log('Usuário ou senha inválidos'),
+        next: () => console.log('Login feito com sucesso!'),
+        error: () => console.log('Erro inesperado! Tente novamente mais tarde'),
       });
   }
 
-  login() {
-    this.router.navigate(['main']);
-  }
-
   navigate() {
-    this.router.navigate(['signup']);
+    this.router.navigate(['login']);
   }
 }
