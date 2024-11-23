@@ -14,7 +14,7 @@ nav {
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem 0 6rem;
+  padding: 0.5rem 2rem 0.5rem 6rem;
 }
 
 ul {
@@ -29,7 +29,7 @@ ul {
 
 input {
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 4px 6px;
   border: 1px solid;
   border-radius: 8px;
   width: 20vw;

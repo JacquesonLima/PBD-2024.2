@@ -4,10 +4,27 @@
   </div>
   <div class="divider"></div>
   <article class="navbar-content">
-    <ul class="navbar-links">
-      <li (click)="onEquipamentosClick()">Equipamento</li>
-      <li (click)="onLocacoesClick()">Locações</li>
-      <li (click)="onUsuariosClick()">Usuários</li>
-    </ul>
+    <div class="sidebar">
+      <ul class="navbar-links">
+        <li
+          [ngClass]="{ selected: activeComponent === 'equipamentos' }"
+          (click)="setActiveComponent('equipamentos')"
+        >
+          Equipamentos
+        </li>
+        <li
+          [ngClass]="{ selected: activeComponent === 'locacoes' }"
+          (click)="setActiveComponent('locacoes')"
+        >
+          Locações
+        </li>
+        <li
+          [ngClass]="{ selected: activeComponent === 'usuarios' }"
+          (click)="setActiveComponent('usuarios')"
+        >
+          Usuários
+        </li>
+      </ul>
+    </div>
   </article>
 </main>

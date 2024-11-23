@@ -49,8 +49,8 @@ export class SignUpComponent {
     this.loginService
       .signup(this.signupForm.value.name, this.signupForm.value.password)
       .subscribe({
-        next: () => console.log('Login feito com sucesso!'),
-        error: () => console.log('Erro inesperado! Tente novamente mais tarde'),
+        next: () => alert('Cadastro feito com sucesso!'),
+        error: () => alert('Usuário já cadastrado'),
       });
   }
 

@@ -27,6 +27,18 @@ main .navbar-title {
 
 li:hover {
   cursor: pointer;
-  color: #d7621a;
-  transition: 0.5s;
+  border-bottom: 1px solid #fff;
+  width: min-content;
+  transition: 0.5s ease-in-out all;
+}
+
+.sidebar .selected {
+  width: min-content;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: none;
+  background-color: #d7621a;
+  color: white;
+  transition: 0.5s ease-in-out all;
+  scale: 1.03;
 }

@@ -1,0 +1,50 @@
+.page-content {
+  margin: 2rem;
+}
+
+table {
+  border-radius: 10px;
+}
+
+.table th {
+  background-color: orange;
+  border-right: 1px solid #d7621a;
+  border-left: 1px solid #d7621a;
+}
+
+.table td {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.form-buttons button {
+  text-align: center;
+  margin: 0 0.2rem 0 0;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.btn-edit {
+  background-color: rgb(76, 224, 76);
+}
+
+.btn-rent {
+  background-color: rgb(45, 131, 236);
+}
+
+.btn-next {
+  display: flex;
+  justify-content: right;
+}
+
+.btn-next button {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: 1s ease-in-out all;
+}
+
+.btn-next button:hover {
+  background-color: #ddd;
+  transition: 1s ease-in-out all;
+}

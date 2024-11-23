@@ -1,25 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
   @Output() changeComponent = new EventEmitter<string>(); // Evento para emitir o nome do componente
 
-  // Funções que emitem o nome do componente a ser exibido
-  onEquipamentosClick() {
-    this.changeComponent.emit('equipamentos');
-  }
+  activeComponent: string = 'equipamentos'; // Define o componente ativo inicialmente
 
-  onUsuariosClick() {
-    this.changeComponent.emit('usuarios');
-  }
-
-  onLocacoesClick() {
-    this.changeComponent.emit('locacoes');
+  setActiveComponent(component: string): void {
+    this.activeComponent = component; // Atualiza o componente ativo ao clicar
+    this.changeComponent.emit(component);
   }
 }
