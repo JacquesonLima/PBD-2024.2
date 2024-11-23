@@ -1,0 +1,17 @@
+<div class="layout">
+  <nav class="navbar">
+    <app-navbar></app-navbar>
+  </nav>
+  <div class="content">
+    <aside class="sidebar">
+      <app-sidebar (changeComponent)="onComponentChange($event)"></app-sidebar>
+    </aside>
+    <main class="main-content">
+      <app-equipamentos
+        *ngIf="activeComponent === 'equipamentos'"
+      ></app-equipamentos>
+      <app-usuarios *ngIf="activeComponent === 'usuarios'"></app-usuarios>
+      <app-locacoes *ngIf="activeComponent === 'locacoes'"></app-locacoes>
+    </main>
+  </div>
+</div>

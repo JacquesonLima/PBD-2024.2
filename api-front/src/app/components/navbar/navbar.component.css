@@ -1,0 +1,53 @@
+main {
+  position: fixed;
+  top: 0;
+  left: 20vw;
+  width: 80vw;
+  padding: 10px;
+  background-color: transparent;
+  color: #000;
+  border-bottom: 1px solid #ddd;
+}
+
+nav {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem 0 6rem;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+input {
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid;
+  border-radius: 8px;
+  width: 20vw;
+}
+
+button {
+  font-size: 12px;
+  align-items: center;
+  text-align: center;
+  border-radius: 8px;
+  margin: 0 0.2rem;
+  padding: 0 4px;
+  border: none;
+  background-color: transparent;
+}
+
+mark {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+}

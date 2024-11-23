@@ -1,0 +1,20 @@
+<main>
+  <nav>
+    <ul>
+      <li (click)="logout()">
+        <img src="assets/svg/logout-svgrepo-com.svg" width="20px" />
+      </li>
+    </ul>
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Campo de Busca"
+        id="search"
+      />
+      <button (click)="highlightWords()">
+        <img src="assets/svg/search-svgrepo-com.svg" width="20px" />
+      </button>
+    </div>
+  </nav>
+</main>

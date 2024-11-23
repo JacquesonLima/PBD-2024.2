@@ -52,6 +52,6 @@ public class AuthController {
       String token = this.tokenService.generateToken(newUser);
       return ResponseEntity.ok(new ResponseDTO(newUser.getUsername(), token));
     }
-    return ResponseEntity.badRequest().build();
+    return ResponseEntity.badRequest().body("Usuário já cadastrado.");
   }
 }
