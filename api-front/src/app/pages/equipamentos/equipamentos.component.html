@@ -3,7 +3,14 @@
     <thead>
       <tr>
         <th>Nome</th>
-        <th>Tipo</th>
+        <th>
+          <select id="tipoFiltro" [(ngModel)]="filtroTipo">
+            <option value="">Tipo</option>
+            <option *ngFor="let tipo of tipos" [value]="tipo">
+              {{ tipo }}
+            </option>
+          </select>
+        </th>
         <th>Quantidade</th>
         <th>Valor</th>
         <th>Total de Locações</th>
@@ -11,19 +18,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let equipamento of equipamentos">
+      <tr *ngFor="let equipamento of equipamentosFiltrados">
         <td>{{ equipamento.nome }}</td>
-        <td>
-          <select name="type" id="type-select">
-            <option value="">Select a Type</option>
-            <option value="audio and video">Aúdio e Vídeo</option>
-            <option value="computers">Computadores</option>
-            <option value="photography">Fotografia</option>
-            <option value="web">Redes</option>
-            <option value="peripherals">Periféricos</option>
-            <option value="mobile">Mobile</option>
-          </select>
-        </td>
+        <td>{{ equipamento.tipo }}</td>
         <td>{{ equipamento.quantidade }}</td>
         <td>R$ {{ equipamento.valor }},00</td>
         <td>{{ equipamento.totalAlocacoes }}</td>
@@ -40,7 +37,4 @@
       </tr>
     </tbody>
   </table>
-  <div class="btn-next">
-    <button>Próximo</button>
-  </div>
 </div>

@@ -1,13 +1,15 @@
 .page-content {
-  margin: 2rem;
+  margin: 2rem 2rem 0 2rem;
+  height: 100%;
 }
 
 table {
   border-radius: 10px;
+  height: min-content;
 }
 
 .table th {
-  background-color: orange;
+  background-color: #fd8d32;
   border-right: 1px solid #d7621a;
   border-left: 1px solid #d7621a;
 }
@@ -37,14 +39,31 @@ table {
   justify-content: right;
 }
 
-.btn-next button {
-  padding: 2px 6px;
-  border-radius: 6px;
-  background-color: transparent;
-  transition: 1s ease-in-out all;
+.pagination {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 }
 
-.btn-next button:hover {
-  background-color: #ddd;
-  transition: 1s ease-in-out all;
+.pagination button {
+  padding: 5px 10px;
+}
+
+.pagination button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+select {
+  background-color: #fd8d32;
+  border: none;
+  outline: none;
+  font-weight: 700;
 }

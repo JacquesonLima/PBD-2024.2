@@ -21,6 +21,7 @@ public class Equipamento {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nome;
+  private String tipo;
   private int quantidade;
   private double valor;
   private int totalAlocacoes;
