@@ -28,6 +28,10 @@ ul {
   cursor: pointer;
 }
 
+li {
+  margin: 0 1rem;
+}
+
 input {
   font-size: 12px;
   padding: 4px 6px;

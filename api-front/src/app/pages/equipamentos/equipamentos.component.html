@@ -25,16 +25,34 @@
         <td>R$ {{ equipamento.valor }},00</td>
         <td>{{ equipamento.totalAlocacoes }}</td>
         <td class="form-buttons">
-          <button class="btn-edit">
-            <img src="assets/svg/edit-3-svgrepo-com.svg" width="20px" /></button
-          ><button class="btn-rent">
-            <img
-              src="assets/svg/trolley-cart-ui-svgrepo-com.svg"
-              width="20px"
-            />
+          <button class="btn-edit" (click)="editarEquipamento()">
+            <img src="assets/svg/edit-3-svgrepo-com.svg" width="20px" />
+          </button>
+          <button class="btn-rent" (click)="alugarEquipamento()">
+            <img src="assets/svg/coin-svgrepo-com.svg" width="20px" />
           </button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Controles de página -->
+  <div class="pagination">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Prev
+    </button>
+    <span>{{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+  <div class="btn-add">
+    <button (click)="adicionarEquipamento()">Adicionar</button>
+  </div>
 </div>

@@ -19,6 +19,10 @@ table {
   border-left: 1px solid #ddd;
 }
 
+.form-buttons {
+  display: flex;
+}
+
 .form-buttons button {
   text-align: center;
   margin: 0 0.2rem 0 0;
@@ -27,11 +31,11 @@ table {
 }
 
 .btn-edit {
-  background-color: rgb(76, 224, 76);
+  background-color: #b7cbbf;
 }
 
 .btn-rent {
-  background-color: rgb(45, 131, 236);
+  background-color: #7abf66;
 }
 
 .btn-next {
@@ -43,11 +47,16 @@ table {
   margin-top: 10px;
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .pagination button {
-  padding: 5px 10px;
+  width: min-content;
+  padding: 4px 10px;
+  background-color: #fd8d32;
+  border: none;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 .pagination button.active {
@@ -66,4 +75,24 @@ select {
   border: none;
   outline: none;
   font-weight: 700;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pagination button {
+  border-radius: 8px;
+}
+
+.pagination span {
+  margin: 0 0.5rem;
+}
+
+.btn-add button {
+  background-color: #fd8d32;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
 }
