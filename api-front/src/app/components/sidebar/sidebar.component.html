@@ -1,28 +1,45 @@
-<main class="navbar-container">
-  <div class="navbar-title">
-    <h2>My App</h2>
+<main class="sidebar-container">
+  <div class="sidebar-title">
+    <h2
+      [ngClass]="{ selected: activeComponent === 'main' }"
+      (click)="setActiveComponent('main')"
+    >
+      My App
+    </h2>
   </div>
   <div class="divider"></div>
-  <article class="navbar-content">
+  <article class="sidebar-content">
     <div class="sidebar">
-      <ul class="navbar-links">
+      <ul class="sidebar-links">
         <li
           [ngClass]="{ selected: activeComponent === 'equipamentos' }"
           (click)="setActiveComponent('equipamentos')"
         >
-          Equipamentos
+          <p>
+            <img
+              src="assets/svg/equipment-round-svgrepo-com.svg"
+              width="18px"
+            />Equipamentos
+          </p>
         </li>
         <li
           [ngClass]="{ selected: activeComponent === 'locacoes' }"
           (click)="setActiveComponent('locacoes')"
         >
-          Locações
+          <p>
+            <img
+              src="/assets/svg/location-1-svgrepo-com.svg"
+              width="18px"
+            />Locações
+          </p>
         </li>
         <li
           [ngClass]="{ selected: activeComponent === 'usuarios' }"
           (click)="setActiveComponent('usuarios')"
         >
-          Usuários
+          <p>
+            <img src="/assets/svg/users-svgrepo-com.svg" width="18px" />Usuários
+          </p>
         </li>
       </ul>
     </div>

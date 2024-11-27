@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './core.component.css',
 })
 export class CoreComponent {
-  activeComponent: string = 'equipamentos'; // Componente inicial
+  activeComponent: string = ''; // Componente inicial
 
   onComponentChange(componentName: string) {
     this.activeComponent = componentName;

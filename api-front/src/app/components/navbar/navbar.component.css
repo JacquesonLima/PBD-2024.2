@@ -8,6 +8,7 @@ main {
   backdrop-filter: blur(10px);
   color: #000;
   border-bottom: 1px solid #ddd;
+  z-index: 10000;
 }
 
 nav {
@@ -28,8 +29,8 @@ ul {
   cursor: pointer;
 }
 
-li {
-  margin: 0 1rem;
+.icon-logout {
+  margin: 0 2rem 0 1rem;
 }
 
 input {
@@ -49,6 +50,11 @@ button {
   padding: 0 4px;
   border: none;
   background-color: transparent;
+}
+
+.user-type {
+  border-right: 1px solid #000;
+  padding-right: 1rem;
 }
 
 mark {

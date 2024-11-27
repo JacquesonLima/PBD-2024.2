@@ -35,4 +35,5 @@
   padding: 4rem 1rem;
   overflow-y: auto; /* Permite rolagem se o conteúdo for maior que o espaço */
   background-color: #fff;
+  height: 100vh;
 }

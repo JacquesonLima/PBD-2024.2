@@ -27,7 +27,7 @@ export class EquipamentosComponent implements OnInit {
   filtroTipo: string = '';
 
   pageSize: number = 10;
-  currentPage: number = 1;
+  currentPage: number = 1 ;
 
   constructor(private equipamentosService: EquipamentosService) {}
 

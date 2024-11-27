@@ -17,6 +17,7 @@ export class NavbarComponent {
   logout() {
     this.router.navigate(['login']);
     localStorage.clear();
+    alert('Logout feito com sucesso.');
   }
 
   highlightWords(): void {

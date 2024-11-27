@@ -5,9 +5,13 @@ main {
   box-shadow: 8px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-main .navbar-title {
+main .sidebar-title {
   text-align: center;
   padding: 20px;
+}
+
+h2 {
+  cursor: pointer;
 }
 
 .divider {
@@ -16,24 +20,44 @@ main .navbar-title {
   height: 1px;
   background-color: #d7621a;
 }
+/* 
+.sidebar {
+  display: flex;
+  justify-content: center;
+} */
 
-.navbar-content .navbar-links {
+.sidebar ul {
+  padding: 0 3rem;
+}
+
+.sidebar-content .sidebar-links {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
   list-style: none;
+  width: fit-content;
 }
 
-li:hover {
+.sidebar-links p {
+  display: flex;
+  margin: 0;
+  font-size: 18px;
+}
+
+.sidebar-links p img {
+  margin-right: 12px;
+}
+
+.sidebar-links p:hover {
   cursor: pointer;
-  border-bottom: 1px solid #fff;
-  width: min-content;
+  width: fit-content;
+  margin: 0;
   transition: 0.5s ease-in-out all;
 }
 
 .sidebar .selected {
-  width: min-content;
+  width: fit-content;
   padding: 0 6px;
   border-radius: 6px;
   border: none;

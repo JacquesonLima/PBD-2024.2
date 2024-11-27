@@ -11,7 +11,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class SidebarComponent {
   @Output() changeComponent = new EventEmitter<string>(); // Evento para emitir o nome do componente
 
-  activeComponent: string = 'equipamentos'; // Define o componente ativo inicialmente
+  activeComponent: string = ''; // Define o componente ativo inicialmente
 
   setActiveComponent(component: string): void {
     this.activeComponent = component; // Atualiza o componente ativo ao clicar
