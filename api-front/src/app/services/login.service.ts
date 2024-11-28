@@ -16,8 +16,8 @@ export class LoginService {
       .post<LoginResponse>(this.apiUrl + '/login', { username, password })
       .pipe(
         tap((value) => {
-          sessionStorage.setItem('auth-token', value.token);
-          sessionStorage.setItem('username', value.username);
+          localStorage.setItem('auth-token', value.token);
+          localStorage.setItem('username', value.username);
         })
       );
   }
@@ -27,8 +27,8 @@ export class LoginService {
       .post<LoginResponse>(this.apiUrl + '/register', { username, password })
       .pipe(
         tap((value) => {
-          sessionStorage.setItem('auth-token', value.token);
-          sessionStorage.setItem('username', value.username);
+          localStorage.setItem('auth-token', value.token);
+          localStorage.setItem('username', value.username);
         })
       );
   }

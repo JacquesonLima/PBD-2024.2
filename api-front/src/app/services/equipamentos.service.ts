@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -19,6 +19,12 @@ export class EquipamentosService {
   constructor(private http: HttpClient) {}
 
   listarTodos(): Observable<Equipamento[]> {
-    return this.http.get<Equipamento[]>(this.apiUrl);
+    const token = localStorage.getItem('auth-token') || ''; // Garante um valor padrão
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<Equipamento[]>(this.apiUrl, { headers });
   }
 }
