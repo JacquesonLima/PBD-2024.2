@@ -1,3 +1,39 @@
-<div class="page-content">
-  <p>locacoes works!</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locações</title>
+</head>
+<body>
+    <h1>Locações de Equipamentos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Equipamentos</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linhas da tabela dinâmicas -->
+            <tr>
+                <td>João da Silva</td>
+                <td>Câmera, Tripé, Microfone</td>
+                <td class="actions">
+                    <button onclick="verDetalhes(1)">Ver Detalhes</button>
+                    <button onclick="editarLocacao(1)">Editar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Maria Oliveira</td>
+                <td>Drone, Iluminação</td>
+                <td class="actions">
+                    <button onclick="verDetalhes(2)">Ver Detalhes</button>
+                    <button onclick="editarLocacao(2)">Editar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
