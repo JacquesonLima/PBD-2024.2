@@ -26,6 +26,8 @@ interface LocacaoEquipamento {
   };
   equipamento: Equipamento;
   dataLocacao: string;
+  status: string;
+  valor: number;
 }
 
 @Component({
@@ -39,11 +41,16 @@ interface LocacaoEquipamento {
 export class LocacoesComponent implements OnInit {
   clientes: { nome: string; itensAlocados: Equipamento[] }[] = [];
   isLoading: boolean = true;
+  locacoesEquipamentos: LocacaoEquipamento[] = [];
+
+  modalAberto = false;
+  locacaoSelecionada: LocacaoEquipamento | null = null;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.carregarDados();
+    this.carregarLocacoes();
   }
 
   carregarDados(): void {
@@ -58,6 +65,39 @@ export class LocacoesComponent implements OnInit {
         },
         error: (err) => console.error('Erro ao carregar locações:', err),
       });
+  }
+
+  carregarLocacoes() {
+    this.http
+      .get<LocacaoEquipamento[]>('http://localhost:8080/locacoes-equipamentos')
+      .subscribe(
+        (data) => {
+          this.locacoesEquipamentos = data;
+        },
+        (error) => {
+          console.error('Erro ao carregar locações', error);
+        }
+      );
+  }
+
+  openModal(locacao: LocacaoEquipamento) {
+    this.locacaoSelecionada = locacao;
+    this.modalAberto = true;
+  }
+
+  calcularDataDevolucao(dataLocacao: string | undefined): string {
+    if (!dataLocacao) {
+      return ''; // Ou qualquer valor padrão que você queira exibir caso não tenha data
+    }
+
+    const data = new Date(dataLocacao);
+    data.setDate(data.getDate() + 7);
+    return data.toISOString().split('T')[0];
+  }
+
+  fecharModal() {
+    this.modalAberto = false;
+    this.locacaoSelecionada = null;
   }
 
   organizarPorCliente(locacoesEquipamentos: LocacaoEquipamento[]): void {
