@@ -1,0 +1,117 @@
+.page-content {
+  margin: 2rem 2rem 0 2rem;
+  height: 100%;
+}
+
+table {
+  border-radius: 10px;
+  height: min-content;
+}
+
+.table th {
+  background-color: #fd8d32;
+  border-right: 1px solid #d7621a;
+  border-left: 1px solid #d7621a;
+}
+
+.table td {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  height: min;
+}
+
+.form-buttons button {
+  padding: 2px 4px;
+  border-radius: 8px;
+}
+
+.btn-edit {
+  background-color: #b7cbbf;
+}
+
+.btn-rent {
+  background-color: #7abf66;
+}
+
+.btn-next {
+  display: flex;
+  justify-content: right;
+}
+
+.pagination {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pagination button {
+  width: min-content;
+  padding: 4px 10px;
+  background-color: #fd8d32;
+  border: none;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
+  outline: none;
+  margin: 0;
+}
+
+.pagination button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+select {
+  background-color: #fd8d32;
+  border: none;
+  outline: none;
+  font-weight: 700;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pagination button {
+  border-radius: 8px;
+}
+
+.pagination span {
+  margin: 0 0.5rem;
+}
+
+.btn-add button {
+  background-color: #fd8d32;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #fd8d32;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -3,6 +3,8 @@ import { EquipamentosService } from '../../services/equipamentos.service';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { error } from 'console';
+import { delay } from 'rxjs';
 
 interface Equipamento {
   nome: string;
@@ -27,14 +29,27 @@ export class EquipamentosComponent implements OnInit {
   filtroTipo: string = '';
 
   pageSize: number = 10;
-  currentPage: number = 1 ;
+  currentPage: number = 1;
+
+  isLoading: boolean = true;
 
   constructor(private equipamentosService: EquipamentosService) {}
 
   ngOnInit() {
-    this.equipamentosService.listarTodos().subscribe((data) => {
-      this.equipamentos = data;
-    });
+    this.isLoading = true;
+    this.equipamentosService
+      .listarTodos()
+      .pipe(delay(500))
+      .subscribe({
+        next: (data) => {
+          this.equipamentos = data;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Erro ao carregar equipamentos:', err);
+          this.isLoading = false;
+        },
+      });
   }
 
   get equipamentosFiltrados() {

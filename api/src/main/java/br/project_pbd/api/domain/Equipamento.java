@@ -1,4 +1,4 @@
-package br.project_pbd.api.domain.user;
+package br.project_pbd.api.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

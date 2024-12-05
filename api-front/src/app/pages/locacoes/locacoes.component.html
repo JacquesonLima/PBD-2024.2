@@ -1,3 +1,25 @@
-<div class="page-content">
-  <p>locacoes works!</p>
+<div *ngIf="isLoading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Carregando equipamentos...</p>
+</div>
+
+<div class="page-content" *ngIf="!isLoading">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome do Cliente</th>
+        <th>Itens Locados</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.nome }}</td>
+        <td>{{ formatarItensAlocados(cliente.itensAlocados) }}</td>
+        <td class="form-buttons">
+          <button (click)="exibirDetalhes(cliente)">Exibir Detalhes</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -37,7 +37,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
             .requestMatchers(HttpMethod.GET, "/equipamentos").authenticated()
-            .anyRequest().authenticated())
+            .anyRequest().permitAll())
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();

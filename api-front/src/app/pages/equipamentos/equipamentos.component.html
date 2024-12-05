@@ -1,5 +1,10 @@
-<div class="page-content">
-  <table class="table">
+<div *ngIf="isLoading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Carregando equipamentos...</p>
+</div>
+
+<div class="page-content" *ngIf="!isLoading">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Nome</th>
