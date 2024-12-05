@@ -17,47 +17,11 @@
         <td>{{ cliente.nome }}</td>
         <td>{{ formatarItensAlocados(cliente.itensAlocados) }}</td>
         <td class="form-buttons">
-          <button (click)="openModal(locacao)" class="btn btn-info">
+          <button (click)="exibirDetalhes(cliente)" class="btn btn-info">
             Exibir Detalhes
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-</div>
-
-<div class="modal" *ngIf="modalAberto && locacaoSelecionada">
-  <div class="modal-content">
-    <span class="close" (click)="fecharModal()">&times;</span>
-
-    <div class="container">
-      <h3>Cliente</h3>
-      <p>
-        <strong>Nome:</strong> {{ locacaoSelecionada?.locacao?.cliente?.nome }}
-      </p>
-      <p>
-        <strong>Endereço:</strong>
-        {{ locacaoSelecionada?.locacao?.cliente?.endereco }}
-      </p>
-      <p>
-        <strong>Telefone:</strong>
-        {{ locacaoSelecionada?.locacao?.cliente?.telefone }}
-      </p>
-    </div>
-
-    <div class="container">
-      <h3>Equipamento</h3>
-      <p><strong>Nome:</strong> {{ locacaoSelecionada?.equipamento?.nome }}</p>
-      <p>
-        <strong>Data de Locação:</strong>
-        {{ locacaoSelecionada?.dataLocacao | date }}
-      </p>
-      <p>
-        <strong>Data de Devolução:</strong>
-        {{ calcularDataDevolucao(locacaoSelecionada?.dataLocacao) | date }}
-      </p>
-      <p><strong>Status:</strong> {{ locacaoSelecionada?.status }}</p>
-      <p><strong>Valor:</strong> R$ {{ locacaoSelecionada?.valor }}</p>
-    </div>
-  </div>
 </div>

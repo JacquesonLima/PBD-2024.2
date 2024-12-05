@@ -39,18 +39,18 @@ interface LocacaoEquipamento {
   encapsulation: ViewEncapsulation.None,
 })
 export class LocacoesComponent implements OnInit {
-  clientes: { nome: string; itensAlocados: Equipamento[] }[] = [];
+  clientes: {
+    nome: string;
+    endereco: string;
+    telefone: string;
+    itensAlocados: Equipamento[];
+  }[] = [];
   isLoading: boolean = true;
-  locacoesEquipamentos: LocacaoEquipamento[] = [];
-
-  modalAberto = false;
-  locacaoSelecionada: LocacaoEquipamento | null = null;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.carregarDados();
-    this.carregarLocacoes();
   }
 
   carregarDados(): void {
@@ -67,43 +67,15 @@ export class LocacoesComponent implements OnInit {
       });
   }
 
-  carregarLocacoes() {
-    this.http
-      .get<LocacaoEquipamento[]>('http://localhost:8080/locacoes-equipamentos')
-      .subscribe(
-        (data) => {
-          this.locacoesEquipamentos = data;
-        },
-        (error) => {
-          console.error('Erro ao carregar locações', error);
-        }
-      );
-  }
-
-  openModal(locacao: LocacaoEquipamento) {
-    this.locacaoSelecionada = locacao;
-    this.modalAberto = true;
-  }
-
-  calcularDataDevolucao(dataLocacao: string | undefined): string {
-    if (!dataLocacao) {
-      return ''; // Ou qualquer valor padrão que você queira exibir caso não tenha data
-    }
-
-    const data = new Date(dataLocacao);
-    data.setDate(data.getDate() + 7);
-    return data.toISOString().split('T')[0];
-  }
-
-  fecharModal() {
-    this.modalAberto = false;
-    this.locacaoSelecionada = null;
-  }
-
   organizarPorCliente(locacoesEquipamentos: LocacaoEquipamento[]): void {
     const clientesMap = new Map<
       number,
-      { nome: string; itensAlocados: Equipamento[] }
+      {
+        nome: string;
+        endereco: string;
+        telefone: string;
+        itensAlocados: Equipamento[];
+      }
     >();
 
     locacoesEquipamentos.forEach((locEquip) => {
@@ -115,6 +87,8 @@ export class LocacoesComponent implements OnInit {
         if (!clientesMap.has(cliente.id)) {
           clientesMap.set(cliente.id, {
             nome: cliente.nome,
+            endereco: cliente.endereco,
+            telefone: cliente.telefone,
             itensAlocados: [],
           });
         }
@@ -127,18 +101,18 @@ export class LocacoesComponent implements OnInit {
 
     this.clientes = Array.from(clientesMap.values());
     this.isLoading = false;
-
-    // Verificando os clientes organizados
-    console.log('Clientes organizados:', this.clientes);
   }
 
   exibirDetalhes(cliente: {
     nome: string;
+    endereco: string;
+    telefone: string;
     itensAlocados: Equipamento[];
   }): void {
-    const detalhes = `Cliente: ${
-      cliente.nome
-    }\nItens Locados: ${cliente.itensAlocados
+    const detalhes = `Nome: ${cliente.nome}, \nEndereço: ${
+      cliente.endereco
+    },\nTelefone: ${cliente.telefone}
+\nItens Alocados: ${cliente.itensAlocados
       .map((equipamento) => equipamento.nome)
       .join(', ')}`;
     alert(detalhes);
