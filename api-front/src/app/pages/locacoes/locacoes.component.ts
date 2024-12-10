@@ -16,6 +16,12 @@ interface Equipamento {
   tipo: string;
   quantidade: number;
   valor: number;
+  equipamento: string;
+  dataLocacao?: string;
+  dataEntrega?: string;
+  status?: string;
+  multa?: number;
+  valorTotal?: number;
 }
 
 interface LocacaoEquipamento {
@@ -46,6 +52,13 @@ export class LocacoesComponent implements OnInit {
     itensAlocados: Equipamento[];
   }[] = [];
   isLoading: boolean = true;
+
+  clienteSelecionado: {
+    nome: string;
+    endereco: string;
+    telefone: string;
+    itensAlocados: Equipamento[];
+  } | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -93,7 +106,14 @@ export class LocacoesComponent implements OnInit {
           });
         }
 
-        clientesMap.get(cliente.id)?.itensAlocados.push(equipamento);
+        clientesMap.get(cliente.id)?.itensAlocados.push({
+          ...equipamento,
+          dataLocacao: locEquip.dataLocacao,
+          dataEntrega: locEquip.status === 'Devolvido' ? 'Calculado/Obtido de outra forma' : undefined,
+          status: locEquip.status,
+          multa: locEquip.valor * 0.1, // Exemplo de cálculo de multa
+          valorTotal: locEquip.valor + locEquip.valor * 0.1,
+        });
       } else {
         console.warn('Locação com dados faltando:', locEquip);
       }
@@ -109,13 +129,11 @@ export class LocacoesComponent implements OnInit {
     telefone: string;
     itensAlocados: Equipamento[];
   }): void {
-    const detalhes = `Nome: ${cliente.nome}, \nEndereço: ${
-      cliente.endereco
-    },\nTelefone: ${cliente.telefone}
-\nItens Alocados: ${cliente.itensAlocados
-      .map((equipamento) => equipamento.nome)
-      .join(', ')}`;
-    alert(detalhes);
+    this.clienteSelecionado = cliente;
+  }
+
+  ocultarDetalhes(): void {
+    this.clienteSelecionado = null;
   }
 
   formatarItensAlocados(itensAlocados: Equipamento[]): string {

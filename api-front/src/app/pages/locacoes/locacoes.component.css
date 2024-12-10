@@ -110,6 +110,38 @@ select {
   animation: spin 1s linear infinite;
 }
 
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.detalhes-cliente {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+  background-color: #c9302c;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
