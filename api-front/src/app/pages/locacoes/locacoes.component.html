@@ -17,11 +17,31 @@
         <td>{{ cliente.nome }}</td>
         <td>{{ formatarItensAlocados(cliente.itensAlocados) }}</td>
         <td class="form-buttons">
-          <button (click)="exibirDetalhes(cliente)" class="btn btn-info">
+          <button (click)="abrirJanela($event, cliente)" class="btn btn-info">
             Exibir Detalhes
           </button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Controles de página -->
+  <div class="pagination">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Prev
+    </button>
+    <span>{{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+  <div class="btn-add">
+    <button>Adicionar</button>
+  </div>
 </div>

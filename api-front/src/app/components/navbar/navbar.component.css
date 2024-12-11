@@ -58,8 +58,8 @@ button {
 }
 
 mark {
-  padding: 0;
   background-color: yellow;
+  padding: 0;
   color: black;
-  font-weight: bold;
+  font-weight: normal;
 }
