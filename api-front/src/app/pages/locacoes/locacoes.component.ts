@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { delay } from 'rxjs';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 interface Cliente {
   id: number;
@@ -33,7 +34,7 @@ interface LocacaoEquipamento {
 @Component({
   selector: 'app-locacoes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModalComponent],
   templateUrl: './locacoes.component.html',
   styleUrls: ['./locacoes.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -45,6 +46,12 @@ export class LocacoesComponent implements OnInit {
     telefone: string;
     itensAlocados: LocacaoEquipamento[];
   }[] = [];
+
+  @ViewChild('modal') modal!: ModalComponent;
+
+  openModal() {
+    this.modal.openModal();
+  }
 
   pageSize: number = 10;
   currentPage: number = 1;
