@@ -63,7 +63,6 @@ export class ModalComponent {
     this.clienteService.buscarCliente(this.termoBuscaCliente).subscribe({
       next: (cliente) => {
         this.clienteEncontrado = cliente;
-        alert('Cliente encontrado!');
       },
       error: () => {
         this.clienteEncontrado = null;
