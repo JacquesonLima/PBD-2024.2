@@ -1,0 +1,29 @@
+<main>
+  <nav>
+    <ul>
+      <li class="user-type">Admin</li>
+      <li class="icon-logout" (click)="logout()">
+        <img
+          src="assets/svg/logout-svgrepo-com.svg"
+          title="Logout"
+          width="20px"
+        />
+      </li>
+    </ul>
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Buscar..."
+        id="search"
+      />
+      <button (click)="highlightWords()">
+        <img
+          src="assets/svg/search-svgrepo-com.svg"
+          title="Pesquisar"
+          width="20px"
+        />
+      </button>
+    </div>
+  </nav>
+</main>

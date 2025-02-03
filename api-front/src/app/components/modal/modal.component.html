@@ -1,0 +1,104 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal-content">
+    <!-- Conteúdo de Locação -->
+    <div *ngIf="modalContent === 'locacao'">
+      <h2>Adicionar Locação</h2>
+
+      <!-- Buscar Cliente -->
+      <div class="section">
+        <h3>Buscar Cliente</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Buscar cliente pelo nome ou CPF"
+            [(ngModel)]="termoBuscaCliente"
+          />
+          <button (click)="buscarCliente()">Buscar</button>
+        </div>
+        <div *ngIf="clienteEncontrado">
+          <p>{{ clienteEncontrado.nome }} - {{ clienteEncontrado.cpf }}</p>
+        </div>
+        <button (click)="abrirModalCadastroCliente()">
+          Cadastrar Novo Cliente
+        </button>
+      </div>
+
+      <!-- Adicionar Equipamento -->
+      <div class="section">
+        <h3>Adicionar Equipamento</h3>
+        <div class="form-group">
+          <select [(ngModel)]="equipamentoSelecionado">
+            <option [value]="null" disabled selected>
+              Selecione um equipamento
+            </option>
+            <option
+              *ngFor="let equipamento of equipamentos"
+              [value]="equipamento.id"
+            >
+              {{ equipamento.nome }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="quantidade">Quantidade:</label>
+          <input type="number" id="quantidade" [(ngModel)]="quantidade" />
+          <button>Adicionar Novo Equipamento</button>
+        </div>
+      </div>
+
+      <!-- Informações da Locação -->
+      <div class="section">
+        <h3>Informações da Locação</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dataEntrega">Data de Entrega:</label>
+            <input type="date" id="dataEntrega" [(ngModel)]="dataEntrega" />
+          </div>
+          <div class="form-group">
+            <label for="local">Local:</label>
+            <input type="text" id="local" [(ngModel)]="local" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="actions">
+        <button (click)="closeModal()">Cancelar</button>
+        <button (click)="salvarLocacao()">Salvar</button>
+      </div>
+    </div>
+
+    <!-- Conteúdo de Cadastro de Cliente -->
+    <div *ngIf="modalContent === 'cadastroCliente'">
+      <h2>Cadastrar Novo Cliente</h2>
+
+      <div class="section">
+        <div class="form-group">
+          <label for="nomeCliente">Nome:</label>
+          <input type="text" id="nomeCliente" [(ngModel)]="novoCliente.nome" />
+        </div>
+        <div class="form-group">
+          <label for="enderecoCliente">Endereço:</label>
+          <input
+            type="text"
+            id="enderecoCliente"
+            [(ngModel)]="novoCliente.endereco"
+          />
+        </div>
+        <div class="form-group">
+          <label for="telefoneCliente">Telefone:</label>
+          <input
+            type="text"
+            id="telefoneCliente"
+            [(ngModel)]="novoCliente.telefone"
+          />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button (click)="modalContent = 'locacao'">Voltar</button>
+        <button (click)="cadastrarCliente()">Salvar Cliente</button>
+      </div>
+    </div>
+  </div>
+</div>

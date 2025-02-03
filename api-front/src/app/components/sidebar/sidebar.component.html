@@ -1,0 +1,47 @@
+<main class="sidebar-container">
+  <div class="sidebar-title">
+    <h2
+      [ngClass]="{ selected: activeComponent === 'main' }"
+      (click)="setActiveComponent('main')"
+    >
+      My App
+    </h2>
+  </div>
+  <div class="divider"></div>
+  <article class="sidebar-content">
+    <div class="sidebar">
+      <ul class="sidebar-links">
+        <li
+          [ngClass]="{ selected: activeComponent === 'equipamentos' }"
+          (click)="setActiveComponent('equipamentos')"
+        >
+          <p>
+            <img
+              src="assets/svg/equipment-round-svgrepo-com.svg"
+              width="18px"
+            />Equipamentos
+          </p>
+        </li>
+        <li
+          [ngClass]="{ selected: activeComponent === 'locacoes' }"
+          (click)="setActiveComponent('locacoes')"
+        >
+          <p>
+            <img
+              src="/assets/svg/location-1-svgrepo-com.svg"
+              width="18px"
+            />Locações
+          </p>
+        </li>
+        <li
+          [ngClass]="{ selected: activeComponent === 'usuarios' }"
+          (click)="setActiveComponent('usuarios')"
+        >
+          <p>
+            <img src="/assets/svg/users-svgrepo-com.svg" width="18px" />Usuários
+          </p>
+        </li>
+      </ul>
+    </div>
+  </article>
+</main>

@@ -1,0 +1,63 @@
+<div *ngIf="isLoading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Carregando equipamentos...</p>
+</div>
+
+<div class="page-content" *ngIf="!isLoading">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>
+          <select id="tipoFiltro" [(ngModel)]="filtroTipo">
+            <option value="">Tipo</option>
+            <option *ngFor="let tipo of tipos" [value]="tipo">
+              {{ tipo }}
+            </option>
+          </select>
+        </th>
+        <th>Quantidade</th>
+        <th>Valor</th>
+        <th>Total de Locações</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipamento of equipamentosFiltrados">
+        <td>{{ equipamento.nome }}</td>
+        <td>{{ equipamento.tipo }}</td>
+        <td>{{ equipamento.quantidade }}</td>
+        <td>R$ {{ equipamento.valor }},00</td>
+        <td>{{ equipamento.totalAlocacoes }}</td>
+        <td class="form-buttons">
+          <button class="btn-edit" (click)="editarEquipamento()">
+            <img src="assets/svg/edit-3-svgrepo-com.svg" width="15px" />
+          </button>
+          <button class="btn-rent" (click)="alugarEquipamento()">
+            <img src="assets/svg/coin-svgrepo-com.svg" width="15px" />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Controles de página -->
+  <div class="pagination">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Prev
+    </button>
+    <span>{{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+  <div class="btn-add">
+    <button (click)="adicionarEquipamento()">Adicionar</button>
+  </div>
+</div>

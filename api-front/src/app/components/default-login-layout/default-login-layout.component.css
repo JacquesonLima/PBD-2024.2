@@ -1,0 +1,88 @@
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #fd8d32;
+  height: 100vh;
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main-section {
+  gap: 8px;
+  flex-grow: 1;
+  background-color: #fff;
+}
+
+.main-section img {
+  width: 50vw;
+}
+
+.form-section {
+  flex-grow: 0.4;
+  padding: 0 35px;
+  box-shadow: 10px 6px 8px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.form-section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 45px;
+}
+
+.form-section .btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 30px;
+}
+
+.form-section .btn-wrapper button {
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+.form-section .btn-wrapper .btn-primary {
+  background-color: #2f2c2b;
+  color: #fff;
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-section .btn-wrapper .btn-secondary {
+  border: 1px solid #2f2c2b;
+}
+
+.form-section .btn-wrapper .divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+
+  font-size: 14px;
+  color: #d7621a;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.form-section .btn-wrapper .divider div {
+  flex-grow: 1;
+  height: 1.5px;
+  background-color: #d7621a;
+}
