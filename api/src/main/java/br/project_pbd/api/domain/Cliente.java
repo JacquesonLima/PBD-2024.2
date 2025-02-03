@@ -22,7 +22,10 @@ public class Cliente {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nome;
+<<<<<<< HEAD
   private String cpf;
+=======
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
   private String endereco;
   private String telefone;
 

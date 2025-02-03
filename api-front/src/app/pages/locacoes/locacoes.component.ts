@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { delay } from 'rxjs';
 import { ModalComponent } from '../../components/modal/modal.component';
+=======
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { delay } from 'rxjs';
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
 
 interface Cliente {
   id: number;
@@ -17,6 +24,15 @@ interface Equipamento {
   tipo: string;
   quantidade: number;
   valor: number;
+<<<<<<< HEAD
+=======
+  equipamento: string;
+  dataLocacao?: string;
+  dataEntrega?: string;
+  status?: string;
+  multa?: number;
+  valorTotal?: number;
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
 }
 
 interface LocacaoEquipamento {
@@ -34,7 +50,11 @@ interface LocacaoEquipamento {
 @Component({
   selector: 'app-locacoes',
   standalone: true,
+<<<<<<< HEAD
   imports: [CommonModule, ModalComponent],
+=======
+  imports: [CommonModule],
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
   templateUrl: './locacoes.component.html',
   styleUrls: ['./locacoes.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -44,6 +64,7 @@ export class LocacoesComponent implements OnInit {
     nome: string;
     endereco: string;
     telefone: string;
+<<<<<<< HEAD
     itensAlocados: LocacaoEquipamento[];
   }[] = [];
 
@@ -61,6 +82,21 @@ export class LocacoesComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   // Inicializada junto ao componente
+=======
+    itensAlocados: Equipamento[];
+  }[] = [];
+  isLoading: boolean = true;
+
+  clienteSelecionado: {
+    nome: string;
+    endereco: string;
+    telefone: string;
+    itensAlocados: Equipamento[];
+  } | null = null;
+
+  constructor(private http: HttpClient) {}
+
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
   ngOnInit(): void {
     this.carregarDados();
   }
@@ -86,7 +122,11 @@ export class LocacoesComponent implements OnInit {
         nome: string;
         endereco: string;
         telefone: string;
+<<<<<<< HEAD
         itensAlocados: LocacaoEquipamento[];
+=======
+        itensAlocados: Equipamento[];
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
       }
     >();
 
@@ -94,7 +134,11 @@ export class LocacoesComponent implements OnInit {
       // Verificando se locacao e cliente existem
       if (locEquip.locacao && locEquip.locacao.cliente) {
         const cliente = locEquip.locacao.cliente;
+<<<<<<< HEAD
         const equipamento = locEquip;
+=======
+        const equipamento = locEquip.equipamento;
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
 
         if (!clientesMap.has(cliente.id)) {
           clientesMap.set(cliente.id, {
@@ -105,7 +149,18 @@ export class LocacoesComponent implements OnInit {
           });
         }
 
+<<<<<<< HEAD
         clientesMap.get(cliente.id)?.itensAlocados.push(equipamento);
+=======
+        clientesMap.get(cliente.id)?.itensAlocados.push({
+          ...equipamento,
+          dataLocacao: locEquip.dataLocacao,
+          dataEntrega: locEquip.status === 'Devolvido' ? 'Calculado/Obtido de outra forma' : undefined,
+          status: locEquip.status,
+          multa: locEquip.valor * 0.1, // Exemplo de cálculo de multa
+          valorTotal: locEquip.valor + locEquip.valor * 0.1,
+        });
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
       } else {
         console.warn('Locação com dados faltando:', locEquip);
       }
@@ -115,6 +170,7 @@ export class LocacoesComponent implements OnInit {
     this.isLoading = false;
   }
 
+<<<<<<< HEAD
   changePage(page: number) {
     if (page > 0 && page <= this.totalPages) {
       this.currentPage = page;
@@ -126,10 +182,13 @@ export class LocacoesComponent implements OnInit {
     return Math.ceil(this.clientes.length / this.pageSize);
   }
 
+=======
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
   exibirDetalhes(cliente: {
     nome: string;
     endereco: string;
     telefone: string;
+<<<<<<< HEAD
     itensAlocados: LocacaoEquipamento[];
   }): void {
     const detalhes = `Nome: ${cliente.nome}, 
@@ -258,5 +317,18 @@ export class LocacoesComponent implements OnInit {
     </html>
   `);
     this.jan.document.close();
+=======
+    itensAlocados: Equipamento[];
+  }): void {
+    this.clienteSelecionado = cliente;
+  }
+
+  ocultarDetalhes(): void {
+    this.clienteSelecionado = null;
+  }
+
+  formatarItensAlocados(itensAlocados: Equipamento[]): string {
+    return itensAlocados.map((equipamento) => equipamento.nome).join(', ');
+>>>>>>> 15e1c61806be4c8c3386d8fb7b3ee7791a413c3b
   }
 }
