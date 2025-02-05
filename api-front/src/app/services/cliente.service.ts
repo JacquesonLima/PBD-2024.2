@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Cliente {
-  id: number;
   nome: string;
-  cpf: string;
   endereco: string;
   telefone: string;
 }
@@ -17,6 +15,10 @@ export class ClienteService {
   private apiUrl = 'http://localhost:8080/clientes';
 
   constructor(private http: HttpClient) {}
+
+  cadastrarCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.apiUrl, cliente);
+  }
 
   buscarCliente(termo: string): Observable<Cliente> {
     const params = new HttpParams().set('termo', termo);

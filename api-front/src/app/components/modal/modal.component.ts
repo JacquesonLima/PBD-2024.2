@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Cliente, ClienteService } from '../../services/cliente.service';
+import {
+  Equipamento,
+  EquipamentosService,
+} from '../../services/equipamentos.service';
 
 @Component({
   selector: 'app-modal',
@@ -10,21 +14,19 @@ import { Cliente, ClienteService } from '../../services/cliente.service';
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
   isOpen = false;
   termoBuscaCliente = '';
   clienteEncontrado: Cliente | null = null;
-  equipamentos = [
-    { id: 1, nome: 'Projetor' },
-    { id: 2, nome: 'Notebook' },
-  ];
-  equipamentoSelecionado: number | null = null;
+  equipamentos: Equipamento[] = [];
+  equipamentoSelecionado: String | null = null;
   quantidade = 1;
   dataEntrega = '';
   local = '';
 
   // Estado para controlar o conteúdo do modal
-  modalContent: 'locacao' | 'cadastroCliente' = 'locacao';
+  modalContent: 'locacao' | 'cadastroCliente' | 'cadastroEquipamento' =
+    'locacao';
 
   // Dados do novo cliente
   novoCliente = {
@@ -42,7 +44,21 @@ export class ModalComponent {
 
   @Output() modalClosed = new EventEmitter<void>();
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private equipamentoService: EquipamentosService
+  ) {}
+
+  ngOnInit() {
+    this.equipamentoService.listarTodos().subscribe({
+      next: (data) => {
+        this.equipamentos = data;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar equipamentos:', err);
+      },
+    });
+  }
 
   openModal() {
     this.isOpen = true;
@@ -52,6 +68,7 @@ export class ModalComponent {
   closeModal() {
     this.isOpen = false;
     this.modalClosed.emit();
+    this.limparCampos();
   }
 
   buscarCliente(): void {
@@ -71,22 +88,35 @@ export class ModalComponent {
     });
   }
 
+  abrirModalCadastroEquipamento() {
+    this.modalContent = 'cadastroEquipamento';
+  }
+
   abrirModalCadastroCliente() {
     this.modalContent = 'cadastroCliente'; // Alternar para o formulário de cadastro de cliente
   }
 
   cadastrarCliente() {
-    console.log('Cliente cadastrado:', this.novoCliente);
-    // Aqui você pode integrar com uma API para salvar o cliente
-    this.novoCliente = { nome: '', endereco: '', telefone: '' }; // Limpar formulário
-    this.modalContent = 'locacao'; // Voltar para o conteúdo de locação após cadastrar
+    this.clienteService.cadastrarCliente(this.novoCliente).subscribe({
+      next: (response) => {
+        console.log('Cliente cadastrado:', response);
+        alert('Cliente cadastrado com sucesso!');
+        this.novoCliente = { nome: '', endereco: '', telefone: '' };
+        this.modalContent = 'locacao';
+      },
+      error: () => {
+        alert('Erro ao cadastrar cliente.');
+      },
+    });
   }
+
+  cadastrarEquipamento() {}
 
   salvarLocacao() {
     const locacao = {
       cliente: this.clienteEncontrado,
       equipamento: this.equipamentos.find(
-        (e) => e.id === this.equipamentoSelecionado
+        (e) => e.nome === this.equipamentoSelecionado
       ),
       quantidade: this.quantidade,
       dataEntrega: this.dataEntrega,
@@ -94,5 +124,10 @@ export class ModalComponent {
     };
     console.log('Locação salva:', locacao);
     this.closeModal();
+  }
+
+  limparCampos() {
+    this.clienteEncontrado = null;
+    this.termoBuscaCliente = '';
   }
 }

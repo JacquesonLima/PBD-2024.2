@@ -16,7 +16,7 @@
           <button (click)="buscarCliente()">Buscar</button>
         </div>
         <div *ngIf="clienteEncontrado">
-          <p>{{ clienteEncontrado.nome }} - {{ clienteEncontrado.cpf }}</p>
+          <p>{{ clienteEncontrado.nome }}</p>
         </div>
         <button (click)="abrirModalCadastroCliente()">
           Cadastrar Novo Cliente
@@ -33,7 +33,7 @@
             </option>
             <option
               *ngFor="let equipamento of equipamentos"
-              [value]="equipamento.id"
+              [value]="equipamento.nome"
             >
               {{ equipamento.nome }}
             </option>
@@ -42,7 +42,9 @@
         <div class="form-group">
           <label for="quantidade">Quantidade:</label>
           <input type="number" id="quantidade" [(ngModel)]="quantidade" />
-          <button>Adicionar Novo Equipamento</button>
+          <button (click)="abrirModalCadastroEquipamento()">
+            Adicionar Novo Equipamento
+          </button>
         </div>
       </div>
 
@@ -72,33 +74,89 @@
     <div *ngIf="modalContent === 'cadastroCliente'">
       <h2>Cadastrar Novo Cliente</h2>
 
-      <div class="section">
-        <div class="form-group">
-          <label for="nomeCliente">Nome:</label>
-          <input type="text" id="nomeCliente" [(ngModel)]="novoCliente.nome" />
+      <form (ngSubmit)="cadastrarCliente()">
+        <div class="section">
+          <div class="form-group">
+            <label for="nomeCliente">Nome:</label>
+            <input
+              type="text"
+              id="nomeCliente"
+              [(ngModel)]="novoCliente.nome"
+              name="nome"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="enderecoCliente">Endereço:</label>
+            <input
+              type="text"
+              id="enderecoCliente"
+              [(ngModel)]="novoCliente.endereco"
+              name="endereco"
+            />
+          </div>
+          <div class="form-group">
+            <label for="telefoneCliente">Telefone:</label>
+            <input
+              type="text"
+              id="telefoneCliente"
+              [(ngModel)]="novoCliente.telefone"
+              name="telefone"
+            />
+          </div>
         </div>
-        <div class="form-group">
-          <label for="enderecoCliente">Endereço:</label>
-          <input
-            type="text"
-            id="enderecoCliente"
-            [(ngModel)]="novoCliente.endereco"
-          />
-        </div>
-        <div class="form-group">
-          <label for="telefoneCliente">Telefone:</label>
-          <input
-            type="text"
-            id="telefoneCliente"
-            [(ngModel)]="novoCliente.telefone"
-          />
-        </div>
-      </div>
 
-      <div class="actions">
-        <button (click)="modalContent = 'locacao'">Voltar</button>
-        <button (click)="cadastrarCliente()">Salvar Cliente</button>
-      </div>
+        <div class="actions">
+          <button (click)="modalContent = 'locacao'">Voltar</button>
+          <button type="submit">Salvar Cliente</button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="modalContent === 'cadastroEquipamento'">
+      <h2>Cadastrar Novo Equipamento</h2>
+
+      <form (ngSubmit)="cadastrarCliente()">
+        <div class="section">
+          <div class="form-group">
+            <label for="nomeCliente">Nome:</label>
+            <input
+              type="text"
+              id="nomeCliente"
+              [(ngModel)]="novoCliente.nome"
+              name="nome"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="enderecoCliente">Tipo:</label>
+            <input
+              type="text"
+              id="enderecoCliente"
+              [(ngModel)]="novoCliente.endereco"
+              name="endereco"
+            />
+          </div>
+          <div class="form-group">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" [(ngModel)]="quantidade" />
+          </div>
+          <div class="form-group">
+            <label for="telefoneCliente">Valor:</label>
+            <input
+              type="text"
+              id="telefoneCliente"
+              [(ngModel)]="novoCliente.telefone"
+              name="telefone"
+            />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button (click)="modalContent = 'locacao'">Voltar</button>
+          <button type="submit">Salvar Cliente</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

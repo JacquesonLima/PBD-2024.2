@@ -60,19 +60,18 @@ export class LocacoesComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  // Inicializada junto ao componente
   ngOnInit(): void {
     this.carregarDados();
   }
 
   carregarDados(): void {
-    const apiUrl = 'http://localhost:8080/locacoes-equipamentos'; // URL da API
+    const apiUrl = 'http://localhost:8080/locacoes-equipamentos';
     this.http
       .get<LocacaoEquipamento[]>(apiUrl)
-      .pipe(delay(500)) // Simula um atraso para teste
+      .pipe(delay(500))
       .subscribe({
         next: (data) => {
-          console.log('Dados recebidos:', data); // Verificando os dados recebidos
+          console.log('Dados recebidos:', data);
           this.organizarPorCliente(data);
         },
         error: (err) => console.error('Erro ao carregar locações:', err),
@@ -91,7 +90,6 @@ export class LocacoesComponent implements OnInit {
     >();
 
     locacoesEquipamentos.forEach((locEquip) => {
-      // Verificando se locacao e cliente existem
       if (locEquip.locacao && locEquip.locacao.cliente) {
         const cliente = locEquip.locacao.cliente;
         const equipamento = locEquip;
@@ -121,7 +119,6 @@ export class LocacoesComponent implements OnInit {
     }
   }
 
-  // Total de páginas com base no tamanho da página
   get totalPages() {
     return Math.ceil(this.clientes.length / this.pageSize);
   }

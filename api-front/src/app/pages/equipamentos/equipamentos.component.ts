@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { EquipamentosService } from '../../services/equipamentos.service';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { error } from 'console';
 import { delay } from 'rxjs';
 
 interface Equipamento {
@@ -25,7 +23,7 @@ interface Equipamento {
 export class EquipamentosComponent implements OnInit {
   equipamentos: Equipamento[] = [];
 
-  tipos: string[] = ['Eletrônico', 'Móvel', 'Ferramenta'];
+  tipos: string[] = ['Eletrônico', 'Áudio', 'Informática', 'Acessório'];
   filtroTipo: string = '';
 
   pageSize: number = 10;

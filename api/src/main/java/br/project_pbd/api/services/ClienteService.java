@@ -16,6 +16,10 @@ public class ClienteService {
     this.clienteRepository = clienteRepository;
   }
 
+  public Cliente salvar(Cliente cliente) {
+    return clienteRepository.save(cliente);
+  }
+
   public Optional<Cliente> buscarCliente(String termo) {
     if (termo.matches("\\d+")) { // Verifica se é um CPF (só números)
       return clienteRepository.findByCpf(termo);
