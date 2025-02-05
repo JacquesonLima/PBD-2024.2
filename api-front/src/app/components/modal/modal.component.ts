@@ -6,6 +6,7 @@ import {
   Equipamento,
   EquipamentosService,
 } from '../../services/equipamentos.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-modal',
@@ -38,8 +39,9 @@ export class ModalComponent implements OnInit {
   novoEquipamento = {
     nome: '',
     tipo: '',
-    quantidade: '',
-    valor: '',
+    quantidade: 0,
+    valor: 0,
+    totalAlocacoes: 0,
   };
 
   @Output() modalClosed = new EventEmitter<void>();
@@ -110,7 +112,28 @@ export class ModalComponent implements OnInit {
     });
   }
 
-  cadastrarEquipamento() {}
+  cadastrarEquipamento() {
+    this.equipamentoService
+      .cadastrarEquipamento(this.novoEquipamento)
+      .subscribe({
+        next: (response) => {
+          console.log('Equipamento cadastrado', response);
+          alert('Equipamento cadastrado com sucesso');
+          this.novoEquipamento = {
+            nome: '',
+            tipo: '',
+            quantidade: 0,
+            valor: 0,
+            totalAlocacoes: 0,
+          };
+          this.modalContent = 'locacao';
+          this.ngOnInit();
+        },
+        error: () => {
+          alert('Erro ao cadastrar equipamento.');
+        },
+      });
+  }
 
   salvarLocacao() {
     const locacao = {

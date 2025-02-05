@@ -18,6 +18,10 @@ public class EquipamentoService {
     this.equipamentoRepository = equipamentoRepository;
   }
 
+  public Equipamento salvar(Equipamento equipamento) {
+    return this.equipamentoRepository.save(equipamento);
+  }
+
   public List<Equipamento> listarTodos() {
     return equipamentoRepository.findAll();
   }

@@ -116,45 +116,50 @@
     <div *ngIf="modalContent === 'cadastroEquipamento'">
       <h2>Cadastrar Novo Equipamento</h2>
 
-      <form (ngSubmit)="cadastrarCliente()">
+      <form (ngSubmit)="cadastrarEquipamento()">
         <div class="section">
           <div class="form-group">
-            <label for="nomeCliente">Nome:</label>
+            <label for="nomeEquipamento">Nome:</label>
             <input
               type="text"
-              id="nomeCliente"
-              [(ngModel)]="novoCliente.nome"
+              id="nomeEquipamento"
+              [(ngModel)]="novoEquipamento.nome"
               name="nome"
               required
             />
           </div>
           <div class="form-group">
-            <label for="enderecoCliente">Tipo:</label>
+            <label for="tipoEquipamento">Tipo:</label>
             <input
               type="text"
-              id="enderecoCliente"
-              [(ngModel)]="novoCliente.endereco"
-              name="endereco"
+              id="tipoEquipamento"
+              [(ngModel)]="novoEquipamento.tipo"
+              name="tipo"
             />
           </div>
           <div class="form-group">
-            <label for="quantidade">Quantidade:</label>
-            <input type="number" id="quantidade" [(ngModel)]="quantidade" />
+            <label for="quantidadeEquipamento">Quantidade:</label>
+            <input
+              type="number"
+              id="quantidadeEquipamento"
+              [(ngModel)]="novoEquipamento.quantidade"
+              name="quantidade"
+            />
           </div>
           <div class="form-group">
-            <label for="telefoneCliente">Valor:</label>
+            <label for="valorEquipamento">Valor:</label>
             <input
               type="text"
-              id="telefoneCliente"
-              [(ngModel)]="novoCliente.telefone"
-              name="telefone"
+              id="valorEquipamento"
+              [(ngModel)]="novoEquipamento.valor"
+              name="valor"
             />
           </div>
         </div>
 
         <div class="actions">
           <button (click)="modalContent = 'locacao'">Voltar</button>
-          <button type="submit">Salvar Cliente</button>
+          <button type="submit">Salvar Equipamento</button>
         </div>
       </form>
     </div>

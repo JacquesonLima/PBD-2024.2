@@ -18,6 +18,10 @@ export class EquipamentosService {
 
   constructor(private http: HttpClient) {}
 
+  cadastrarEquipamento(equipamento: Equipamento): Observable<Equipamento> {
+    return this.http.post<Equipamento>(this.apiUrl, equipamento);
+  }
+
   listarTodos(): Observable<Equipamento[]> {
     const token = localStorage.getItem('auth-token') || ''; // Garante um valor padrão
     const headers = new HttpHeaders({
