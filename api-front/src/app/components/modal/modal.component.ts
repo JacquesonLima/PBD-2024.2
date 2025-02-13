@@ -6,7 +6,15 @@ import {
   Equipamento,
   EquipamentosService,
 } from '../../services/equipamentos.service';
-import { response } from 'express';
+import { LocacaoEquipamentoService } from '../../services/locacao-equipamento.service';
+import { LocacaoService } from '../../services/locacao.service';
+
+export interface Locacao {
+  id?: number;
+  cliente: Cliente;
+  equipamento: Equipamento;
+  dataLocacao: string;
+}
 
 @Component({
   selector: 'app-modal',
@@ -20,21 +28,14 @@ export class ModalComponent implements OnInit {
   termoBuscaCliente = '';
   clienteEncontrado: Cliente | null = null;
   equipamentos: Equipamento[] = [];
-  equipamentoSelecionado: String | null = null;
-  quantidade = 1;
-  dataEntrega = '';
-  local = '';
+  equipamentoSelecionado: string | null = null;
+  dataLocacao = '';
+  locacao: Locacao | null = null;
 
-  // Estado para controlar o conteúdo do modal
   modalContent: 'locacao' | 'cadastroCliente' | 'cadastroEquipamento' =
     'locacao';
 
-  // Dados do novo cliente
-  novoCliente = {
-    nome: '',
-    endereco: '',
-    telefone: '',
-  };
+  novoCliente = { nome: '', endereco: '', telefone: '' };
 
   novoEquipamento = {
     nome: '',
@@ -47,55 +48,28 @@ export class ModalComponent implements OnInit {
   @Output() modalClosed = new EventEmitter<void>();
 
   constructor(
+    private locacaoService: LocacaoService,
     private clienteService: ClienteService,
-    private equipamentoService: EquipamentosService
+    private equipamentoService: EquipamentosService,
+    private locacaoEquipamentoService: LocacaoEquipamentoService
   ) {}
 
   ngOnInit() {
     this.equipamentoService.listarTodos().subscribe({
-      next: (data) => {
-        this.equipamentos = data;
-      },
-      error: (err) => {
-        console.error('Erro ao carregar equipamentos:', err);
-      },
+      next: (data) => (this.equipamentos = data),
+      error: (err) => console.error('Erro ao carregar equipamentos:', err),
     });
   }
 
   openModal() {
     this.isOpen = true;
-    this.modalContent = 'locacao'; // Sempre abrir no conteúdo de locação
+    this.modalContent = 'locacao';
   }
 
   closeModal() {
     this.isOpen = false;
     this.modalClosed.emit();
     this.limparCampos();
-  }
-
-  buscarCliente(): void {
-    if (!this.termoBuscaCliente.trim()) {
-      alert('Digite um nome ou CPF para buscar.');
-      return;
-    }
-
-    this.clienteService.buscarCliente(this.termoBuscaCliente).subscribe({
-      next: (cliente) => {
-        this.clienteEncontrado = cliente;
-      },
-      error: () => {
-        this.clienteEncontrado = null;
-        alert('Cliente não encontrado.');
-      },
-    });
-  }
-
-  abrirModalCadastroEquipamento() {
-    this.modalContent = 'cadastroEquipamento';
-  }
-
-  abrirModalCadastroCliente() {
-    this.modalContent = 'cadastroCliente'; // Alternar para o formulário de cadastro de cliente
   }
 
   cadastrarCliente() {
@@ -110,6 +84,10 @@ export class ModalComponent implements OnInit {
         alert('Erro ao cadastrar cliente.');
       },
     });
+  }
+
+  abrirModalCadastroCliente() {
+    this.modalContent = 'cadastroCliente';
   }
 
   cadastrarEquipamento() {
@@ -135,22 +113,101 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  salvarLocacao() {
-    const locacao = {
+  abrirModalCadastroEquipamento() {
+    this.modalContent = 'cadastroEquipamento';
+  }
+
+  buscarCliente() {
+    if (!this.termoBuscaCliente.trim()) {
+      alert('Digite um nome para buscar.');
+      return;
+    }
+    this.clienteService.buscarCliente(this.termoBuscaCliente).subscribe({
+      next: (cliente) => (this.clienteEncontrado = cliente),
+      error: () => {
+        this.clienteEncontrado = null;
+        alert('Cliente não encontrado.');
+      },
+    });
+  }
+
+  async salvarLocacao(): Promise<Locacao> {
+    if (!this.clienteEncontrado) {
+      alert('Selecione um cliente antes de cadastrar a locação.');
+      throw new Error('Cliente não encontrado');
+    }
+
+    const novaLocacao = {
       cliente: this.clienteEncontrado,
       equipamento: this.equipamentos.find(
         (e) => e.nome === this.equipamentoSelecionado
       ),
-      quantidade: this.quantidade,
-      dataEntrega: this.dataEntrega,
-      local: this.local,
+      dataLocacao: this.dataLocacao,
     };
-    console.log('Locação salva:', locacao);
-    this.closeModal();
+
+    return new Promise((resolve, reject) => {
+      this.locacaoService.salvarLocacao(novaLocacao).subscribe({
+        next: (response) => {
+          console.log('Locação cadastrada:', response);
+          resolve(response);
+        },
+        error: (err) => {
+          console.error('Erro ao cadastrar locação:', err);
+          alert('Erro ao cadastrar locação.');
+          reject(err);
+        },
+      });
+    });
+  }
+
+  async cadastrarLocacaoEquipamento() {
+    try {
+      const locacaoSalva = await this.salvarLocacao();
+
+      if (!this.equipamentoSelecionado) {
+        alert('Selecione um equipamento antes de cadastrar a locação.');
+        return;
+      }
+
+      const equipamentoSelecionado = this.equipamentos.find(
+        (e) => e.nome === this.equipamentoSelecionado
+      );
+
+      if (!equipamentoSelecionado) {
+        alert('Equipamento não encontrado.');
+        return;
+      }
+
+      const locacaoEquipamento = {
+        locacao: { id: locacaoSalva.id },
+        equipamento: equipamentoSelecionado,
+        dataLocacao: this.dataLocacao,
+      };
+
+      this.locacaoEquipamentoService
+        .salvarLocacaoEquipamento(locacaoEquipamento)
+        .subscribe({
+          next: (response) => {
+            console.log('Locação de equipamento cadastrada:', response);
+            alert('Locação de Equipamento cadastrada com sucesso!');
+            this.modalContent = 'locacao';
+            this.ngOnInit();
+            this.closeModal();
+          },
+          error: (err) => {
+            console.error('Erro ao cadastrar locação:', err);
+            alert('Erro ao cadastrar locação de equipamento.');
+          },
+        });
+    } catch (error) {
+      console.error('Erro ao salvar locação:', error);
+    }
   }
 
   limparCampos() {
     this.clienteEncontrado = null;
     this.termoBuscaCliente = '';
+    this.equipamentoSelecionado = null;
+    this.dataLocacao = '';
   }
 }
